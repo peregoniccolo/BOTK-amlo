@@ -1,6 +1,6 @@
-# Contributing to BOTK-core #
+# Contributing to BOTK-amlo #
 
-Contributions to BOTK-core are always welcome. You make our lives easier by
+Contributions are always welcome. You make our lives easier by
 sending us your contributions through pull requests.
 
 Pull requests for bug fixes must be based on the current stable branch whereas
@@ -16,7 +16,7 @@ We kindly ask you to add following sentence to your pull request:
 
 “I hereby assign copyright in this code to the project, to be licensed under the same terms as the rest of the code.”
 
-## Set-up of a local developmente workstation
+## Set-up of a local development workstation
 
 The platform is shipped with a [Docker](https://docker.com) setup that makes it easy to get a containerized environment up and running. 
 If you do not already have Docker on your computer, 
