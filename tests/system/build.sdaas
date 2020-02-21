@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-set -a
-SD_INCLUDE ruleset
+ 
 SD_INCLUDE testing
 
-SD_SPARQL_UPDATE "INSERT DATA { <urn:a> <urn:b> <urn:c> }"
+SD_LEARN urn:test:graph tests/system/data/example1.csv "|in|out|.ttl|tests/system/gateways/example1.php"
 
+SD_DATA_TEST tests/system/tests
 
-SD_CREATE_DATA_DISTRIBUTION
-SD_DATA_TEST
 SD_THATS_ALL_FOLKS

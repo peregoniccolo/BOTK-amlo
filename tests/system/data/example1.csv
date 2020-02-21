@@ -1,0 +1,2 @@
+id,subjectId,subjectName,subjectNDG,subjectCountry,subjectSex,subjectBirthDate,subjectBornInMunicipality,unexpectedActivityPeriod,ignore,unexpectedActivityStatus,unexpectedActivityStatusDescription,evauatorId,unexpectedActivityNotes,accountableBranchCode,created,unexpectedActivityRiskProfile
+G20200220-1,123123,Simone Ventura,S123123,it,M,03/03/1963,Lecco,10/02/2020,N,00,MAI VISIONATO,GIANOS,,B12345,20/02/2020,Low Risk

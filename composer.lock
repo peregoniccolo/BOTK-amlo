@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9362518503dc538713b78c358769a7c4",
+    "content-hash": "3c6d6c7d94b80c7a408fceb9e8c8efe9",
     "packages": [
         {
             "name": "botk/core",
-            "version": "8.0.0",
+            "version": "8.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/linkeddatacenter/BOTK-core.git",
-                "reference": "e98e8e81f5962d8500934dd55608c56028540e87"
+                "reference": "b9ff22b6fbfc13e64a22c4944e79e6fea1f78411"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/linkeddatacenter/BOTK-core/zipball/e98e8e81f5962d8500934dd55608c56028540e87",
-                "reference": "e98e8e81f5962d8500934dd55608c56028540e87",
+                "url": "https://api.github.com/repos/linkeddatacenter/BOTK-core/zipball/b9ff22b6fbfc13e64a22c4944e79e6fea1f78411",
+                "reference": "b9ff22b6fbfc13e64a22c4944e79e6fea1f78411",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "RDF",
                 "open data"
             ],
-            "time": "2020-02-19T11:49:34+00:00"
+            "time": "2020-02-21T15:37:59+00:00"
         }
     ],
     "packages-dev": [
