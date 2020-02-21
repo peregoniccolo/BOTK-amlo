@@ -1,6 +1,8 @@
 composer.phar
 /work/
 /vendor/
+.cache
+distrib
 /.vagrant/
 .project
 .settings
