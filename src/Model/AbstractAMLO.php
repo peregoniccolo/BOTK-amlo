@@ -38,12 +38,15 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 	
 	/**
 	 * adds a FIBO idenfifier
+	 *     $idenfiedURI, $registryURI, $idURI must be URIs
+	 *     $id is  valid RDF PATH identifier
+	 *     $type is a CURI using available vocabulary prefixes
 	 */
 	protected function addIdentifier($idenfiedURI, $type, $id, $registryURI=null, $idURI=null)
 	{
 	    assert( !empty($type) && !empty($id) && !empty($idenfiedURI) );
 	    
-	    $subjectIdURI = $this->getURI($id, '') ;
+	    $subjectIdURI = $idURI?:$this->getURI($id, '_id') ;
 	    $this->addFragment("<$subjectIdURI> fibo-fnd-rel-rel:hasTag \"%s\" ;", $id, false);
 	    $this->addFragment(" fibo-fnd-aap-agt:identifies <%s> ;", $idenfiedURI, false );
 	    $this->addFragment(" fibo-fnd-rel-rel:isDefinedIn <%s> ;", $registryURI ,false );
@@ -52,14 +55,18 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 	    return $this;
 	}
 	
+	
 	/**
-	* adds a party in role
-	*/
-	protected function addPartyInRole($subjectURI, $partyURI, $role)
+	 * adds a party in role
+	 *     $subjectURI, $partyURI and $relURI must be URIs
+	 *     $role is a CURI using available vocabulary prefixes
+	 */
+	protected function addPartyInRole($subjectURI, $partyURI, $role, $relURI=null)
 	{
 	    assert( !empty($subjectURI) && !empty($partyURI) && !empty($role) );
+	    $relURI = $relURI?:$idURI?:$this->getURI(null, '_party-in-role');
 	    
-	    $this->rdf .= "<$subjectURI> fibo-fnd-pty-pty:hasPartyInRole [ a $role ; fibo-fnd-rel-rel:hasIdentity <$partyURI> ] .";
+	    $this->rdf .= "<$subjectURI> fibo-fnd-pty-pty:hasPartyInRole <$relURI> . <$relURI> a $role ; fibo-fnd-rel-rel:hasIdentity <$partyURI>  .";
 	    $this->tripleCount += 3;
 	    
 	    return $this;
