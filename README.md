@@ -21,7 +21,7 @@ composer require botk/amlo
 
 ## Overview
 
-This package provides some php classes to transform raw data into AMLO linked data.
+This package provides some php abstract classes designed to help transforming raw data into AMLO linked data.
 
 The goal of the libraries is to simplify the conversion of raw data (e.g. .csv or  xml file) about *unexpected activities*, *transfer*, and *risk ratings* according AMLO core ontology.
 

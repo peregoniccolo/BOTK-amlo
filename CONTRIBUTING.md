@@ -27,18 +27,18 @@ If you do not already have Docker on your computer,
 
 Retrieve BOTK-core's dependencies using [Composer](http://getcomposer.org/):
 
-	docker run --rm -ti -v $PWD/.:/app composer install
-	docker run --rm -ti -v $PWD/.:/app composer update
+	docker run --rm -ti -v ${PWD}:/app composer install
+	docker run --rm -ti -v ${PWD}:/app composer update
 
 
 Unit tests are performed through PHPUnit. To launch unit tests:
 
-	docker run --rm -v $PWD/.:/app -w /app --entrypoint vendor/bin/phpunit php
+	docker run --rm -v ${PWD}:/app -w /app --entrypoint vendor/bin/phpunit php
 
 
 System tests are performed through SDaaS-ce platform. To launch functional tests:
 
-	docker run --rm -v $PWD/.:/workspace --entrypoint tests/system/do_tests.sh linkeddatacenter/sdaas-ce:2.5.0
+	docker run --rm -v ${PWD}:/workspace --entrypoint tests/system/do_tests.sh linkeddatacenter/sdaas-ce:2.5.0
 
 
 
@@ -46,10 +46,10 @@ System tests are performed through SDaaS-ce platform. To launch functional tests
 
 run bash from the sdaas platform:
 
-	docker run -d --name test -v $PWD/.:/workspace -p 8080:8080 linkeddatacenter/sdaas-ce:2.5.0
+	docker run -d --name test -v ${PWD}:/workspace -p 8080:8080 linkeddatacenter/sdaas-ce:2.5.0
 	docker exec -ti test bash
 
-Install php 7.3  according with https://github.com/codecasts/php-alpine
+install php 7.3  according with https://github.com/codecasts/php-alpine :
 
 	apk add --update curl ca-certificates
 	curl https://dl.bintray.com/php-alpine/key/php-alpine.rsa.pub -o /etc/apk/keys/php-alpine.rsa.pub

@@ -5,24 +5,32 @@ require_once __DIR__.'/../../../vendor/autoload.php';
 
 class TEST extends \AMLO\Model\AbstractAMLO implements \BOTK\ModelInterface
 {
-    protected static $DEFAULT_OPTIONS = [
-        'activityId' => BOTK\Filters::LITERAL ,
-        'subjectId' => BOTK\Filters::LITERAL ,
-        'subjectName' => BOTK\Filters::LITERAL ,
-        'subjectNDG' => BOTK\Filters::LITERAL ,
-        'subjectCountry' => BOTK\Filters::LITERAL ,
-        'subjectGender' => BOTK\Filters::LITERAL ,
-        'subjectDateOfBirth' => BOTK\Filters::LITERAL ,
-        'subjectBornInMunicipality' => BOTK\Filters::LITERAL ,
-        'unexpectedActivityPeriod' => BOTK\Filters::LITERAL ,
-        'ignore' => BOTK\Filters::LITERAL ,
-        'unexpectedActivityStatus' => BOTK\Filters::LITERAL ,
-        'unexpectedActivityStatusDescription'  => BOTK\Filters::LITERAL ,
-        'evaluatorId' => BOTK\Filters::LITERAL ,
-        'unexpectedActivityNotes' => BOTK\Filters::LITERAL ,
-        'accountableBranchCode' => BOTK\Filters::LITERAL ,
-        'created' => BOTK\Filters::LITERAL ,
-        'unexpectedActivityRiskProfile' => BOTK\Filters::LITERAL ,
+    const STRING = ['filter'=> FILTER_DEFAULT, 'flags'=> FILTER_REQUIRE_SCALAR];
+    
+    protected static $DEFAULT_OPTIONS = [,
+        'ndg-registry-uri' => [
+            'default'=> 'urn:resource:undefined-ndg-registry',
+            'filter'=>FILTER_CALLBACK,
+            'options'=>'\BOTK\Filters::FILTER_VALIDATE_URI',
+            'flags'=> FILTER_REQUIRE_SCALAR
+        ],
+        'activityId' => self::STRING ,
+        'subjectId' => self::STRING ,
+        'subjectName' => self::STRING ,
+        'subjectNDG' => self::STRING ,
+        'subjectCountry' => self::STRING ,
+        'subjectGender' => self::STRING ,
+        'subjectDateOfBirth' => self::STRING ,
+        'subjectBornInMunicipality' => self::STRING ,
+        'unexpectedActivityPeriod' => self::STRING ,
+        'ignore' => self::STRING ,
+        'unexpectedActivityStatus' => self::STRING ,
+        'unexpectedActivityStatusDescription'  => self::STRING ,
+        'evaluatorId' => self::STRING ,
+        'unexpectedActivityNotes' => self::STRING ,
+        'accountableBranchCode' => self::STRING ,
+        'created' => self::STRING ,
+        'unexpectedActivityRiskProfile' => self::STRING ,
     ];
     
     public function asTurtleFragment()
@@ -32,19 +40,18 @@ class TEST extends \AMLO\Model\AbstractAMLO implements \BOTK\ModelInterface
             /********************************
              * Individuals URIs
              ********************************/
-            // unexpected activity
+            // unexpected activity URI
             $activityURI = $this->getURI($this->data['activityId'], '-activity');
             
-            // autonomous agent
+            // autonomous agent  URI
             $subjectURI = $this->getURI($this->data['subjectId'], '-agent' ) ;
             
-            //Bank branch office
+            // bank branch office  URI
             $branchURI = $this->getURI($this->data['accountableBranchCode'], '-branch' );
             
-            //Unexpected Activity Report
+            // unexpected Activity Report  URI
             $reportURI = $this->getURI($this->data['activityId'], '-report' );
-            
-            
+
             
             /********************************
              * Facts

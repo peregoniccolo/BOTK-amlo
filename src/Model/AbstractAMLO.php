@@ -7,14 +7,6 @@ namespace AMLO\Model;
 abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 {
     
-    protected static $DEFAULT_OPTIONS = [
-        'ndg-registry-uri' => [ 
-            'default'=> 'urn:resource:undefined-ndg-registry',
-            'filter'=>FILTER_CALLBACK, 
-            'options'=>'\BOTK\Filters::FILTER_VALIDATE_URI', 
-            'flags'=> FILTER_REQUIRE_SCALAR
-        ],
-    ];
     
 	protected static $VOCABULARY  = [
 	   'fibo-fnd-dt-oc'    	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/',
@@ -47,10 +39,10 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 	    assert( !empty($type) && !empty($id) && !empty($idenfiedURI) );
 	    
 	    $subjectIdURI = $idURI?:$this->getURI($id, '_id') ;
-	    $this->addFragment("<$subjectIdURI> fibo-fnd-rel-rel:hasTag \"%s\" ;", $id, false);
-	    $this->addFragment(" fibo-fnd-aap-agt:identifies <%s> ;", $idenfiedURI, false );
-	    $this->addFragment(" fibo-fnd-rel-rel:isDefinedIn <%s> ;", $registryURI ,false );
-	    $this->addFragment(" a %s .", $type ,false);
+	    $this->addFragment("<$subjectIdURI> fibo-fnd-rel-rel:hasTag \"%s\";", $id, false);
+	    $this->addFragment("fibo-fnd-aap-agt:identifies <%s>;", $idenfiedURI, false );
+	    $this->addFragment("fibo-fnd-rel-rel:isDefinedIn <%s>;", $registryURI ,false );
+	    $this->addFragment("a %s .", $type ,false);
 	    
 	    return $this;
 	}
@@ -61,13 +53,14 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 	 *     $subjectURI, $partyURI and $relURI must be URIs
 	 *     $role is a CURI using available vocabulary prefixes
 	 */
-	protected function addPartyInRole($subjectURI, $partyURI, $role, $relURI=null)
+	protected function addPartyInRole($subjectURI, $partyURI, $role, $relURIForced=null)
 	{
 	    assert( !empty($subjectURI) && !empty($partyURI) && !empty($role) );
-	    $relURI = $relURI?:$idURI?:$this->getURI(null, '_party-in-role');
+	    $relURI = $relURIForced?:$this->getURI(null, '_party-in-role');
 	    
-	    $this->rdf .= "<$subjectURI> fibo-fnd-pty-pty:hasPartyInRole <$relURI> . <$relURI> a $role ; fibo-fnd-rel-rel:hasIdentity <$partyURI>  .";
-	    $this->tripleCount += 3;
+	    $this->addFragment("<$subjectURI> fibo-fnd-pty-pty:hasPartyInRole <%s>.", $relURI, false);
+	    $this->addFragment("<$relURI> a %s ;", $role, false);
+	    $this->addFragment("fibo-fnd-rel-rel:hasIdentity <%s>.", $partyURI, false);
 	    
 	    return $this;
 	}

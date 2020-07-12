@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 
 - packagist badges
 
+### removed
+
+- ndg-registry-uri default
+
 ## 1.0.0
 First release
 
