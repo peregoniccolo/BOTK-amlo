@@ -9,7 +9,8 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     
     protected static $VOCABULARY  = [
         'amlo'              => 'http://w3id.org/amlo/core#',
-        'fibo-fbc-fct-ra'   => 'https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/',
+        'fibo-be-le-fbo'    => 'https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/FormalBusinessOrganizations/',
+        'fibo-fnd-pty-pty'	=> 'https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/',
         'lcc-lr'            => 'https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/',
         'alpha2CountryId'   => 'https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/',
 	];
