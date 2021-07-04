@@ -7,61 +7,52 @@ namespace AMLO\Model;
 abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 {
     
-    
-	protected static $VOCABULARY  = [
-	   'fibo-fnd-dt-oc'    	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/',
-	   'fibo-fnd-pas-pas'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/',
-	   'fibo-fnd-arr-rt'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Ratings/',
-	   'fibo-fnd-arr-rep'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Reporting/',
-	   'fibo-fnd-arr-doc'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/',
-	   'fibo-fnd-arr-asmt'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/',
-	   'fibo-fnd-arr-id'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/',
-	   'fibo-fnd-acc-cur'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/',
-	   'fibo-fnd-qt-qtu'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Quantities/QuantitiesAndUnits/',
-	   'fibo-fnd-acc-4217'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/ISO4217-CurrencyCodes/',
-	   'fibo-fnd-rel-rel'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/',
-	   'fibo-fnd-aap-agt'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/Agents/',
-	   'fibo-fnd-aap-ppl'   =>  'https://spec.edmcouncil.org/fibo/ontology/FND/AgentsAndPeople/People/',
-	   'fibo-fnd-pty-pty'	=>  'https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/',
-	   'fibo-be-oac-exec'	=>  'https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/',
-	   'fibo-fbc-pas-caa'	=>  'https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/',
-	   'amlo' =>  'http://w3id.org/amlo/core#',
+    protected static $VOCABULARY  = [
+        'amlo'              => 'http://w3id.org/amlo/core#',
+        'fibo-fbc-fct-ra'   => 'https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/RegistrationAuthorities/',
+        'lcc-lr'            => 'https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/',
+        'alpha2CountryId'   => 'https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/',
 	];
-	
-	/**
-	 * adds a FIBO idenfifier
-	 *     $idenfiedURI, $registryURI, $idURI must be URIs
-	 *     $id is  valid RDF PATH identifier
-	 *     $type is a CURI using available vocabulary prefixes
-	 */
-	protected function addIdentifier($idenfiedURI, $type, $id, $registryURI=null, $idURI=null)
-	{
-	    assert( !empty($type) && !empty($id) && !empty($idenfiedURI) );
-	    
-	    $subjectIdURI = $idURI?:$this->getURI($id, '_id') ;
-	    $this->addFragment("<$subjectIdURI> fibo-fnd-rel-rel:hasTag \"%s\";", $id, false);
-	    $this->addFragment("fibo-fnd-aap-agt:identifies <%s>;", $idenfiedURI, false );
-	    $this->addFragment("fibo-fnd-rel-rel:isDefinedIn <%s>;", $registryURI ,false );
-	    $this->addFragment("a %s .", $type ,false);
-	    
-	    return $this;
-	}
-	
-	
-	/**
-	 * adds a party in role
-	 *     $subjectURI, $partyURI and $relURI must be URIs
-	 *     $role is a CURI using available vocabulary prefixes
-	 */
-	protected function addPartyInRole($subjectURI, $partyURI, $role, $relURIForced=null)
-	{
-	    assert( !empty($subjectURI) && !empty($partyURI) && !empty($role) );
-	    $relURI = $relURIForced?:$this->getURI(null, '_party-in-role');
-	    
-	    $this->addFragment("<$subjectURI> fibo-fnd-pty-pty:hasPartyInRole <%s>.", $relURI, false);
-	    $this->addFragment("<$relURI> a %s ;", $role, false);
-	    $this->addFragment("fibo-fnd-rel-rel:hasIdentity <%s>.", $partyURI, false);
-	    
-	    return $this;
-	}
+
+ 
+   
+    protected function getUriFromCountryID( $alpha2CountryId, $tag ) : String
+    {
+        assert( preg_match('/^[A-Z]{2}$/', $alpha2CountryId ) && $tag );
+        
+        return $this->getUri(md5(strtoupper($alpha2CountryId.$tag)));
+    }
+
+    
+    protected function addCountryId($curiType, $alpha2CountryId, $taxID, $subjectUri=null) 
+    {
+        $alpha2CountryId=strtoupper($alpha2CountryId);
+        $taxID=strtoupper($taxID);
+        
+        $uri = $this->getUriFromCountryID( $alpha2CountryId, $taxID );
+        
+        $idUri= $uri .'_i';
+        if( is_null($subjectUri)) { $subjectUri=$uri ;}
+        
+        $this->addFragment("<$idUri> a %s ;" , $curiType, false);
+        $this->addFragment(  'lcc-lr:hasTag "%s" ;', $taxID);
+        $this->addFragment(  'lcc-lr:isMemberOf alpha2CountryId:%s ;', $alpha2CountryId, false);
+        $this->addFragment(  'lcc-lr:identifies <%s> .', $subjectUri, false);
+        
+        return $this;
+    }
+    
+    
+    protected function addTaxID($alpha2CountryId, $taxID, $subjectUri=null)
+    {   
+        return $this->addCountryId('fibo-fnd-pty-pty:TaxIdentifier', $alpha2CountryId, $taxID, $subjectUri);
+    }
+    
+    
+    protected function addVatID($alpha2CountryId, $vatID, $subjectUri=null)
+    {
+        return $this->addCountryId('fibo-be-le-fbo:ValueAddedTaxIdentificationNumber', $alpha2CountryId, $vatID, $subjectUri);
+    }
+    
+
 }

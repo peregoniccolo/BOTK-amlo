@@ -1,10 +1,10 @@
 {
 	"name": "botk/amlo",
-    "description": "Super lightweight classes and tools for developing RDF gateways for AMLO and FIBO vocabolary.",
+    "description": "Super lightweight classes and tools for developing RDF gateways for AMLO and FIBO vocabularies.",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/linkeddatacenter/BOTK-amlo",
-    "keywords": ["BOTK", "KEES", "RDF", "OPEN DATA", "LINKED DATA", "AML", "AMLO"],
+    "keywords": ["BOTK", "KEES", "RDF", "OPEN DATA", "LINKED DATA", "AML", "AMLO","MOPSO"],
     "authors": [
         {
             "name": "Enrico Fagnoni",
@@ -12,8 +12,8 @@
         }
     ],
     "require": {
-        "php": "^7.3",
-		"botk/core": "^8.1"
+        "php": ">=7.3",
+		"botk/core": ">=8.2.5"
     },
     "require-dev" : {
         "phpunit/phpunit": "^9"

@@ -4,35 +4,62 @@ use PHPUnit\Framework\TestCase;
 class DummyModel extends AMLO\Model\AbstractAMLO
 {
 	public function asTurtleFragment() { return $this->rdf;}	
-	public function addIdentifierProxy($p1,$p2,$p3,$p4,$p5) { return $this->addIdentifier($p1,$p2,$p3,$p4,$p5);}
-	public function addPartyInRoleProxy($p1,$p2,$p3,$p4) { return $this->addPartyInRole($p1,$p2,$p3,$p4);}
+	public function addTaxIDProxy($p1,$p2,$p3=null){ return $this->addTaxID($p1,$p2,$p3);}
+	public function addVatIDProxy($p1,$p2,$p3=null){ return $this->addVatID($p1,$p2,$p3);}
 }
 
 class AbstractModelTest extends TestCase
 {
     
-	public function testAddIdentifier()
+    public function testAddTaxID()
 	{
 	    $obj = DummyModel::fromArray(array());
-	    $obj->addIdentifierProxy('urn:resource:identified', 'fibo:type', 'id', null, null);
+	    $obj->addTaxIDProxy('it', 'fgnnrc63S06F205A');
+	    
+	    $subjectUri = 'urn:resource:'. md5('ITFGNNRC63S06F205A');
+	    $idUri=$subjectUri.'_i';
 
-	    $expected = $obj->getTurtleHeader() . "\n" .
-            '<urn:resource:id_id> fibo-fnd-rel-rel:hasTag "id";' .
-            'fibo-fnd-aap-agt:identifies <urn:resource:identified>;' .
-            'a fibo:type .';
+	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
+	        "<$idUri> a fibo-fnd-pty-pty:TaxIdentifier ;" .
+	        "lcc-lr:hasTag \"FGNNRC63S06F205A\" ;" .
+	        "lcc-lr:isMemberOf alpha2CountryId:IT ;" .
+	        "lcc-lr:identifies <$subjectUri> ." ;
+
+	   	$this->assertEquals($expected,(string) $obj);
+    }
+	
+	
+	public function testAddVatID()
+	{
+	    $obj = DummyModel::fromArray(array());
+	    $obj->addVatIDProxy('It', '11717750969');
+	    
+	    $subjectUri = 'urn:resource:'. md5('IT11717750969');
+	    $idUri=$subjectUri.'_i';
+
+	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
+	        "<$idUri> a fibo-be-le-fbo:ValueAddedTaxIdentificationNumber ;" .
+	        "lcc-lr:hasTag \"11717750969\" ;" .
+	        "lcc-lr:isMemberOf alpha2CountryId:IT ;" .
+	        "lcc-lr:identifies <$subjectUri> .";
 	    
 	   	$this->assertEquals($expected,(string) $obj);
 	}
 	
 	
-	public function testPartyInRole()
+	public function testAddVatIDwithSubject()
 	{
 	    $obj = DummyModel::fromArray(array());
-	    $obj->addPartyInRoleProxy('urn:resource:subject', 'urn:resource:identity', 'fibo:role', 'urn:resource:test');
+	    $obj->addVatIDProxy('It', '11717750969', 'urn:test:organization');
 	    
-	    $expected = $obj->getTurtleHeader() . "\n" .
-    	    '<urn:resource:subject> fibo-fnd-pty-pty:hasPartyInRole <urn:resource:test>.' .
-    	    '<urn:resource:test> a fibo:role ;fibo-fnd-rel-rel:hasIdentity <urn:resource:identity>.' ;
+	    $subjectUri = 'urn:resource:'. md5('IT11717750969');
+	    $idUri=$subjectUri.'_i';
+	    
+	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
+	   	    "<$idUri> a fibo-be-le-fbo:ValueAddedTaxIdentificationNumber ;" .
+	   	    "lcc-lr:hasTag \"11717750969\" ;" .
+	   	    "lcc-lr:isMemberOf alpha2CountryId:IT ;" .
+	   	    "lcc-lr:identifies <urn:test:organization> .";
 	    
 	    $this->assertEquals($expected,(string) $obj);
 	}

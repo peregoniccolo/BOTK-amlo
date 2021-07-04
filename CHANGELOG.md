@@ -4,6 +4,21 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 
 ## [Unreleased]
 
+## 2.0.0
+
+### Added
+
+- allow PHP 8
+- some FIBO prefixes
+- aligned with new FIBO version
+- compatibility with Mopso Brain Language Profile specification
+- requires BOTK-core >= 8.2.5
+- protected function getUriFromCountryID
+- protected function addCountryId
+- protected function addTaxID
+- protected function addVatID
+
+
 ### fixed
 
 - packagist badges
@@ -11,6 +26,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 ### removed
 
 - ndg-registry-uri default
+- addIdentifier method
+- addPartyInRole method
+- sytem tests and dependencies to SDaaS platform
+
 
 ## 1.0.0
 First release
