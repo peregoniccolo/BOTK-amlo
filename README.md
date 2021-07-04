@@ -7,8 +7,9 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/botk/amlo.svg?style=flat-square)](https://packagist.org/packages/botk/amlo)
 [![License](https://img.shields.io/packagist/l/botk/amlo.svg?style=flat-square)](https://packagist.org/packages/botk/amlo)
 
-Super lightweight classes for developing gateways for [AMLO core ontology](https://gitlab.com/mopso/amlo/-/tree/master/core). Now also compatible with Mopso Brain Language Profile.
+This package provides some php abstract classes designed to help transforming raw data into linked data using AMLO and FIBO Ontologies.
 
+This package extends the [BOTK core library](https://github.com/linkeddatacenter/BOTK-core) and it is compatible with Mopso Brain Language Profile.
 
 ## Installation
 
@@ -18,15 +19,6 @@ You can install it using [Composer](http://getcomposer.org):
 ```
 composer require botk/amlo
 ```
-
-## Overview
-
-This package provides some php abstract classes designed to help transforming raw data into linked data
-using AMLO and FIBO Ontologies.
-
-This package extends the [BOTK core library](https://github.com/linkeddatacenter/BOTK-core) and it is compatible with [LinkedData.Center SDaaS platform](http://linkeddata.center/home/sdaas)
-
-See here [a usage example](tests/system/gateways/example1.php)
 
 ## Contributing to this project
 
