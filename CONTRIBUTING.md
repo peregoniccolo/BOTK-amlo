@@ -14,7 +14,7 @@ Please see http://help.github.com/pull-requests/.
 
 We kindly ask you to add following sentence to your pull request:
 
-“I hereby assign copyright in this code to the project, to be licensed under the same terms as the rest of the code.”
+"I hereby assign copyright in this code to the project, to be licensed under the same terms as the rest of the code."
 
 ## Set-up of a local development workstation
 

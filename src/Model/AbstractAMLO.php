@@ -25,15 +25,12 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     }
 
     
-    protected function addCountryId($curiType, $alpha2CountryId, $taxID, $subjectUri=null) 
+    protected function addCountryId($curiType, $alpha2CountryId, $taxID, $subjectUri) 
     {
         $alpha2CountryId=strtoupper($alpha2CountryId);
         $taxID=strtoupper($taxID);
-        
-        $uri = $this->getUriFromCountryID( $alpha2CountryId, $taxID );
-        
-        $idUri= $uri .'_i';
-        if( is_null($subjectUri)) { $subjectUri=$uri ;}
+
+        $idUri= $this->getUriFromCountryID( $alpha2CountryId, $taxID ) .'_i';
         
         $this->addFragment("<$idUri> a %s ;" , $curiType, false);
         $this->addFragment(  'lcc-lr:hasTag "%s" ;', $taxID);
@@ -44,13 +41,13 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     }
     
     
-    protected function addTaxID($alpha2CountryId, $taxID, $subjectUri=null)
+    protected function addTaxID($alpha2CountryId, $taxID, $subjectUri)
     {   
         return $this->addCountryId('fibo-fnd-pty-pty:TaxIdentifier', $alpha2CountryId, $taxID, $subjectUri);
     }
     
     
-    protected function addVatID($alpha2CountryId, $vatID, $subjectUri=null)
+    protected function addVatID($alpha2CountryId, $vatID, $subjectUri)
     {
         return $this->addCountryId('fibo-be-le-fbo:ValueAddedTaxIdentificationNumber', $alpha2CountryId, $vatID, $subjectUri);
     }
