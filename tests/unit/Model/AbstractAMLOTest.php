@@ -16,12 +16,12 @@ class AbstractModelTest extends TestCase
 	    $obj = DummyModel::fromArray(array());
 	    $obj->addTaxIDProxy('it', 'fgnnrc63S06F205A', 'urn:test:agent');
 
-	    $idUri='urn:resource:' . md5('ITFGNNRC63S06F205A') .'_i';
+	    $idUri='urn:hash::md5:' . md5('TAXIDITFGNNRC63S06F205A');
 
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	        "<$idUri> a fibo-fnd-pty-pty:TaxIdentifier ;" .
 	        'lcc-lr:hasTag "FGNNRC63S06F205A" ;' .
-	        'lcc-lr:isMemberOf alpha2CountryId:IT ;' .
+	        'lcc-lr:isMemberOf <urn:amlo:schema:taxid:it> ;' .
 	        'lcc-lr:identifies <urn:test:agent> .' ;
 
 	   	$this->assertEquals($expected,(string) $obj);
@@ -33,12 +33,12 @@ class AbstractModelTest extends TestCase
 	    $obj = DummyModel::fromArray(array());
 	    $obj->addVatIDProxy('It', '11717750969', 'urn:test:organization');
 	    
-	    $idUri='urn:resource:' . md5('IT11717750969') .'_i';
+	    $idUri='urn:hash::md5:' . md5('VATIDIT11717750969');
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	   	    "<$idUri> a fibo-be-le-fbo:ValueAddedTaxIdentificationNumber ;" .
 	   	    'lcc-lr:hasTag "11717750969" ;' .
-	   	    'lcc-lr:isMemberOf alpha2CountryId:IT ;' .
+	   	    'lcc-lr:isMemberOf <urn:amlo:schema:vatid:it> ;' .
 	   	    'lcc-lr:identifies <urn:test:organization> .';
 	    
 	    $this->assertEquals($expected,(string) $obj);

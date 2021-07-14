@@ -12,44 +12,51 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
         'fibo-be-le-fbo'    => 'https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/FormalBusinessOrganizations/',
         'fibo-fnd-pty-pty'	=> 'https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/',
         'lcc-lr'            => 'https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/',
-        'alpha2CountryId'   => 'https://www.omg.org/spec/LCC/Countries/ISO3166-1-CountryCodes/',
 	];
 
- 
-   
-    protected function getUriFromCountryID( $alpha2CountryId, $tag ) : String
-    {
-        assert( preg_match('/^[A-Z]{2}$/', $alpha2CountryId ) && $tag );
-        
-        return $this->getUri(md5(strtoupper($alpha2CountryId.$tag)));
-    }
-
     
-    protected function addCountryId($curiType, $alpha2CountryId, $taxID, $subjectUri) 
+    protected function getCountryID($schemaID, $alpha2CountryId, $tag)
+    {   
+        
+        return $tag?('urn:hash::md5:'. md5(strtoupper($schemaID.$alpha2CountryId.$tag))):null ;  
+    }
+    
+    
+    protected function addCountryID($schemaID, $alpha2CountryId, $tag, $subjectUri)
     {
-        $alpha2CountryId=strtoupper($alpha2CountryId);
-        $taxID=strtoupper($taxID);
-
-        $idUri= $this->getUriFromCountryID( $alpha2CountryId, $taxID ) .'_i';
+        assert( preg_match('/^[A-Za-z]{2}$/', $alpha2CountryId ) &&  preg_match('/^(taxid|vatid)$/', $schemaID ) );
         
-        $this->addFragment("<$idUri> a %s ;" , $curiType, false);
-        $this->addFragment(  'lcc-lr:hasTag "%s" ;', $taxID);
-        $this->addFragment(  'lcc-lr:isMemberOf alpha2CountryId:%s ;', $alpha2CountryId, false);
-        $this->addFragment(  'lcc-lr:identifies <%s> .', $subjectUri, false);
+        if($uri = $this->getCountryID($schemaID, $alpha2CountryId, $tag)) {
+            switch ($schemaID) {
+                case 'taxid':
+                    $fiboType='fibo-fnd-pty-pty:TaxIdentifier'; 
+                    ;
+                    break;
+                
+                case 'vatid':
+                    $fiboType='fibo-be-le-fbo:ValueAddedTaxIdentificationNumber';
+                    ;
+                    break;
+            }
+            $this->addFragment("<%s> a $fiboType ;" , $uri, false);
+            $this->addFragment(  'lcc-lr:hasTag "%s" ;', strtoupper($tag) );
+            $this->addFragment(  "lcc-lr:isMemberOf <urn:amlo:schema:$schemaID:%s> ;", strtolower($alpha2CountryId), false);
+            $this->addFragment(  'lcc-lr:identifies <%s> .', $subjectUri, false);
+        }
         
-        return $this;
+        return $uri;
     }
     
     
     protected function addTaxID($alpha2CountryId, $taxID, $subjectUri)
     {   
-        return $this->addCountryId('fibo-fnd-pty-pty:TaxIdentifier', $alpha2CountryId, $taxID, $subjectUri);
+        return $this->addCountryID('taxid', $alpha2CountryId, $taxID, $subjectUri);
     }
     
     
     protected function addVatID($alpha2CountryId, $vatID, $subjectUri)
-    {
-        return $this->addCountryId('fibo-be-le-fbo:ValueAddedTaxIdentificationNumber', $alpha2CountryId, $vatID, $subjectUri);
+    {    
+        return $this->addCountryID('vatid', $alpha2CountryId, $vatID, $subjectUri);
     }
     
 
