@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7ae78937758bced3370afddc9b3b8353",
+    "content-hash": "fe67a7262ef3b1e2312d023a0b6e64cf",
     "packages": [
         {
             "name": "botk/core",
