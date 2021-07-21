@@ -15,9 +15,8 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 	];
 
     
-    protected function getCountryID($schemaID, $alpha2CountryId, $tag)
-    {   
-        
+    protected function getUriFromCountryID($schemaID, $alpha2CountryId, $tag)
+    {         
         return $tag?('urn:hash::md5:'. md5(strtoupper($schemaID.$alpha2CountryId.$tag))):null ;  
     }
     
@@ -26,7 +25,7 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     {
         assert( preg_match('/^[A-Za-z]{2}$/', $alpha2CountryId ) &&  preg_match('/^(taxid|vatid)$/', $schemaID ) );
         
-        if($uri = $this->getCountryID($schemaID, $alpha2CountryId, $tag)) {
+        if($uri = $this->getUriFromCountryID($schemaID, $alpha2CountryId, $tag)) {
             switch ($schemaID) {
                 case 'taxid':
                     $fiboType='fibo-fnd-pty-pty:TaxIdentifier'; 
