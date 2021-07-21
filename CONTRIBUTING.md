@@ -27,13 +27,13 @@ If you do not already have Docker on your computer,
 
 Retrieve BOTK-core's dependencies using [Composer](http://getcomposer.org/):
 
-	docker run --rm -ti -v ${PWD}:/app composer install
-	docker run --rm -ti -v ${PWD}:/app composer update
+	docker run --rm -ti -v ${PWD}:/app composer:2 install
+	docker run --rm -ti -v ${PWD}:/app composer:2 update
 
 
 Unit tests are performed through PHPUnit. To launch unit tests:
 
-	docker run --rm -v ${PWD}:/app -w /app --entrypoint vendor/bin/phpunit php
+	docker run --rm -v ${PWD}:/app -w /app --entrypoint vendor/bin/phpunit php:8
 
 
 

@@ -59,5 +59,17 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
         return $this->addCountryID('vatid', $alpha2CountryId, $vatID, $subjectUri);
     }
     
+    
+    protected function getRiskAnnotationUri($riskCuriType, $targetUri, $bodyUri=null) {
+        return $this->getUri(md5($riskCuriType.$targetUri.$bodyUri));
+    }
+    
+    
+    protected function addRiskAnnotation($amloRiskType, $targetUri, $bodyUri=null) {
+        $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri,$bodyUri);
+        $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
+        $this->addFragment(  'amlo:hasBody <%s> .', $bodyUri, false);
+        $this->addFragment(  'amlo:hasTarget <%s> .', $targetUri, false);
+    }
 
 }
