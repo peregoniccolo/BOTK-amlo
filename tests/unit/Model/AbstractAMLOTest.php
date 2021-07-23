@@ -15,9 +15,9 @@ class AbstractModelTest extends TestCase
     public function testAddTaxID()
 	{
 	    $obj = DummyModel::fromArray(array());
-	    $obj->addTaxIDProxy('it', 'fgnnrc63S06F205A', 'urn:test:agent');
+	    $obj->addTaxIDProxy('it', 'FGNNRC63S06F205A', 'urn:test:agent');
 
-	    $idUri='urn:hash::md5:' . md5('TAXIDITFGNNRC63S06F205A');
+	    $idUri='urn:taxid:it:fgnnrc63S06F205A';
 
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	        "<$idUri> a fibo-fnd-pty-pty:TaxIdentifier ;" .
@@ -34,7 +34,7 @@ class AbstractModelTest extends TestCase
 	    $obj = DummyModel::fromArray(array());
 	    $obj->addVatIDProxy('It', '11717750969', 'urn:test:organization');
 	    
-	    $idUri='urn:hash::md5:' . md5('VATIDIT11717750969');
+	    $idUri='urn:vatid:it:11717750969';  
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	   	    "<$idUri> a fibo-be-le-fbo:ValueAddedTaxIdentificationNumber ;" .
