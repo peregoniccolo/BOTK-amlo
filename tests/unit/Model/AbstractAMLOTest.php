@@ -17,7 +17,7 @@ class AbstractModelTest extends TestCase
 	    $obj = DummyModel::fromArray(array());
 	    $obj->addTaxIDProxy('it', 'FGNNRC63S06F205A', 'urn:test:agent');
 
-	    $idUri='urn:taxid:it:fgnnrc63S06F205A';
+	    $idUri='urn:taxid:it:fgnnrc63s06f205a';
 
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	        "<$idUri> a fibo-fnd-pty-pty:TaxIdentifier ;" .
