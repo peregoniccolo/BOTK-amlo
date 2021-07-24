@@ -17,7 +17,8 @@ final class FiltersTest extends TestCase
             array( 'Primo',	    'Primo'), 
     		array( 'primo',	    'Primo'), 
     		array( 'Primo-e-secondo',		'PrimoESecondo'), 
-    		array( 'primo-secondo-terzo ',	'PrimoSecondoTerzo'), 
+            array( 'primo-secondo-terzo ',	'PrimoSecondoTerzo'),
+            array( 'Società di capitali',	'SocietàDiCapitali'), 
 		);
 	}
 	
