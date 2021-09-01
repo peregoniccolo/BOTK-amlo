@@ -7,6 +7,7 @@ class DummyModel extends AMLO\Model\AbstractAMLO
 	public function addTaxIDProxy($p1,$p2,$p3){ return $this->addTaxID($p1,$p2,$p3);}
 	public function addVatIDProxy($p1,$p2,$p3){ return $this->addVatID($p1,$p2,$p3);}
 	public function addRiskAnnotationProxy($p1,$p2,$p3){ return $this->addRiskAnnotation($p1,$p2,$p3);}
+	public function addRiskRatingProxy($p1,$p2,$p3,$p4){ return $this->addRiskRating($p1,$p2,$p3,$p4);}
 }
 
 class AbstractModelTest extends TestCase
@@ -55,6 +56,23 @@ class AbstractModelTest extends TestCase
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	   	    "<$idUri> a amlo:MyRisk ;" .
+	   	    'amlo:hasTarget <urn:x> .' ;
+	    
+	    $this->assertEquals($expected,(string) $obj);
+	}
+	
+	
+	public function testRiskRating()
+	{
+	    $obj = DummyModel::fromArray(array());
+	    $obj->addRiskRatingProxy('MyRisk', 'urn:x', 0.1234, 'urn:y');
+	    
+	    $idUri='urn:resource:' . md5('MyRisk'.'urn:x'.'urn:y');
+	    
+	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
+	   	    "<$idUri> a amlo:MyRisk ;" .
+	   	    'amlo:hasRiskEstimator "0.12"^^xsd:decimal ;' .
+	   	    'amlo:hasBody <urn:y> ;' .
 	   	    'amlo:hasTarget <urn:x> .' ;
 	    
 	    $this->assertEquals($expected,(string) $obj);
