@@ -22,5 +22,9 @@ class Filters {
         return lcfirst(self::FILTER_SANITIZE_AS_CLASS_NAME($str));
     }
 	    
-
+    
+    public static function FILTER_VALIDATE_RISK($risk)
+    {
+        return floatval($risk);
+    }
 }
