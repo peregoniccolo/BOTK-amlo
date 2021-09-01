@@ -8,7 +8,9 @@ namespace AMLO;
  * 	- to deny empty values if the data is invalid filter MUST returns false
  */
 class Filters {
-
+    
+    const RISK_ESTIMATOR = ['filter'=>FILTER_CALLBACK, 'options'=>'\AMLO\Filters::FILTER_VALIDATE_RISK', 'flags'=> FILTER_REQUIRE_SCALAR] ;
+    
 	
     public static function FILTER_SANITIZE_AS_CLASS_NAME($str)
 	{
