@@ -79,8 +79,14 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     }
     
     protected function addRiskRating($amloRiskType, $targetUri, float $riskEstimator, $bodyUri=null) {
-        $uri=$this->addRiskAnnotation($amloRiskType, $targetUri, $bodyUri);
-        $this->addFragment("<$uri> amlo:hasRiskEstimator \"%s\"^^xsd:float .", $riskEstimator, false);
+        
+        $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri,$bodyUri);
+        $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
+        $this->addFragment(  'amlo:hasBody <%s> .', $bodyUri, false);
+        $this->addFragment(  'amlo:hasTarget <%s> ;', $targetUri, false);
+        $this->addFragment(  'amlo:hasRiskEstimator "%s"^^xsd:decimal .', $riskEstimator, false);
+        
+        return $uri;     
     }
     
 
