@@ -4,13 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 
 ## [Unreleased]
 
-## 2.1.0
+
+## 2.0.0
+
 
 ### Changed
 
 - model optimzation and vocabularies
-
-## 2.0.0
 
 ### Added
 
