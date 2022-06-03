@@ -21,10 +21,10 @@ class AbstractModelTest extends TestCase
 	    $idUri='urn:taxid:it:fgnnrc63s06f205a';
 
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
-	        "<$idUri> a fibo-fnd-pty-pty:TaxIdentifier ;" .
-	        'lcc-lr:hasTag "FGNNRC63S06F205A" ;' .
-	        'lcc-lr:isMemberOf <urn:amlo:schema:taxid:it> ;' .
-	        'lcc-lr:identifies <urn:test:agent> .' ;
+	        "<$idUri> a Parties:TaxIdentifier ;" .
+	        'LanguageRepresentation:hasTag "FGNNRC63S06F205A" ;' .
+	        'LanguageRepresentation:isMemberOf <urn:amlo:schema:taxid:it> ;' .
+	        'LanguageRepresentation:identifies <urn:test:agent> .' ;
 
 	   	$this->assertEquals($expected,(string) $obj);
     }
@@ -38,10 +38,10 @@ class AbstractModelTest extends TestCase
 	    $idUri='urn:vatid:it:11717750969';  
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
-	   	    "<$idUri> a fibo-be-le-fbo:ValueAddedTaxIdentificationNumber ;" .
-	   	    'lcc-lr:hasTag "11717750969" ;' .
-	   	    'lcc-lr:isMemberOf <urn:amlo:schema:vatid:it> ;' .
-	   	    'lcc-lr:identifies <urn:test:organization> .';
+	   	    "<$idUri> a FormalBusinessOrganizations:ValueAddedTaxIdentificationNumber ;" .
+	   	    'LanguageRepresentation:hasTag "11717750969" ;' .
+	   	    'LanguageRepresentation:isMemberOf <urn:amlo:schema:vatid:it> ;' .
+	   	    'LanguageRepresentation:identifies <urn:test:organization> .';
 	    
 	    $this->assertEquals($expected,(string) $obj);
 	}

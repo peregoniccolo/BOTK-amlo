@@ -8,10 +8,10 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
 {
     
     protected static $VOCABULARY  = [
-        'amlo'              => 'http://w3id.org/amlo/core#',
-        'fibo-be-le-fbo'    => 'https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/FormalBusinessOrganizations/',
-        'fibo-fnd-pty-pty'	=> 'https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/',
-        'lcc-lr'            => 'https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/',
+        'amlo' => 'http://w3id.org/amlo/core#',
+        'FormalBusinessOrganizations' => 'https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/FormalBusinessOrganizations/',
+        'Parties' => 'https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/',
+        'LanguageRepresentation' => 'https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/',
 	];
 
     
@@ -33,19 +33,19 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
         if($uri = $this->getUriFromCountryID($schemaID, $alpha2CountryId, $tag)) {
             switch ($schemaID) {
                 case 'taxid':
-                    $fiboType='fibo-fnd-pty-pty:TaxIdentifier'; 
+                    $fiboType='Parties:TaxIdentifier'; 
                     ;
                     break;
                 
                 case 'vatid':
-                    $fiboType='fibo-be-le-fbo:ValueAddedTaxIdentificationNumber';
+                    $fiboType='FormalBusinessOrganizations:ValueAddedTaxIdentificationNumber';
                     ;
                     break;
             }
             $this->addFragment("<%s> a $fiboType ;" , $uri, false);
-            $this->addFragment(  'lcc-lr:hasTag "%s" ;', strtoupper($tag) );
-            $this->addFragment(  "lcc-lr:isMemberOf <urn:amlo:schema:$schemaID:%s> ;", strtolower($alpha2CountryId), false);
-            $this->addFragment(  'lcc-lr:identifies <%s> .', $subjectUri, false);
+            $this->addFragment(  'LanguageRepresentation:hasTag "%s" ;', strtoupper($tag) );
+            $this->addFragment(  "LanguageRepresentation:isMemberOf <urn:amlo:schema:$schemaID:%s> ;", strtolower($alpha2CountryId), false);
+            $this->addFragment(  'LanguageRepresentation:identifies <%s> .', $subjectUri, false);
         }
         
         return $uri;
