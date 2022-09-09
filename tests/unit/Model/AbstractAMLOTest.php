@@ -6,8 +6,8 @@ class DummyModel extends AMLO\Model\AbstractAMLO
 	public function asTurtleFragment() { return $this->rdf;}	
 	public function addTaxIDProxy($p1,$p2,$p3){ return $this->addTaxID($p1,$p2,$p3);}
 	public function addVatIDProxy($p1,$p2,$p3){ return $this->addVatID($p1,$p2,$p3);}
-	public function addRiskAnnotationProxy($p1,$p2,$p3){ return $this->addRiskAnnotation($p1,$p2,$p3);}
-	public function addRiskRatingProxy($p1,$p2,$p3,$p4){ return $this->addRiskRating($p1,$p2,$p3,$p4);}
+	public function addRiskAnnotationProxy($p1,$p2,$p3,$p4){ return $this->addRiskAnnotation($p1,$p2,$p3,$p4);}
+	public function addRiskRatingProxy($p1,$p2,$p3,$p4,$p5){ return $this->addRiskRating($p1,$p2,$p3,$p4,$p5);}
 }
 
 class AbstractModelTest extends TestCase
@@ -50,12 +50,13 @@ class AbstractModelTest extends TestCase
 	public function testRiskAnnotation()
 	{
 	    $obj = DummyModel::fromArray(array());
-	    $obj->addRiskAnnotationProxy('MyRisk', 'urn:x', null);
+	    $obj->addRiskAnnotationProxy('MyRisk', 'urn:x', null, "test");
 	    
 	    $idUri='urn:resource:' . md5('MyRisk'.'urn:x'.null);
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	   	    "<$idUri> a amlo:MyRisk ;" .
+			'amlo:motivatedby "test" ;'.
 	   	    'amlo:hasTarget <urn:x> .' ;
 	    
 	    $this->assertEquals($expected,(string) $obj);
@@ -65,7 +66,7 @@ class AbstractModelTest extends TestCase
 	public function testRiskRating()
 	{
 	    $obj = DummyModel::fromArray(array());
-	    $obj->addRiskRatingProxy('MyRisk', 'urn:x', 0.1234, 'urn:y');
+	    $obj->addRiskRatingProxy('MyRisk', 'urn:x', 0.1234, 'urn:y', null);
 	    
 	    $idUri='urn:resource:' . md5('MyRisk'.'urn:x'.'urn:y');
 	    

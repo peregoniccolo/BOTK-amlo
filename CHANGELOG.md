@@ -5,6 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 ## [Unreleased]
 
 
+## 3.1.0
+
+### Added
+
+- motivation in addRiskAnnotation and addRiskRating
+
+
+## 3.0.0
+
+Updated prefix with 2022-06 FIBO release
+
+
 ## 2.0.0
 
 

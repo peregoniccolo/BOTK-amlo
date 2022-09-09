@@ -69,21 +69,23 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
     }
     
     
-    protected function addRiskAnnotation($amloRiskType, $targetUri, $bodyUri=null) {
-        $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri,$bodyUri);
+    protected function addRiskAnnotation($amloRiskType, $targetUri, $bodyUri=null, $motivatedBy=null) {
+        $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri, $bodyUri);
         $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
         $this->addFragment(  'amlo:hasBody <%s> ;', $bodyUri, false);
+        $this->addFragment(  'amlo:motivatedby "%s" ;', $motivatedBy);
         $this->addFragment(  'amlo:hasTarget <%s> .', $targetUri, false);
         
         return $uri;
     }
     
-    protected function addRiskRating($amloRiskType, $targetUri, float $riskEstimator, $bodyUri=null) {
+    protected function addRiskRating($amloRiskType, $targetUri, float $riskEstimator, $bodyUri=null, $motivatedBy=null) {
         
         $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri,$bodyUri);
         $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
         $this->addFragment(  'amlo:hasRiskEstimator "%.2f"^^xsd:decimal ;', $riskEstimator, false);
         $this->addFragment(  'amlo:hasBody <%s> ;', $bodyUri, false);
+        $this->addFragment(  'amlo:motivatedby "%s" ;', $motivatedBy);
         $this->addFragment(  'amlo:hasTarget <%s> .', $targetUri, false);
         
         return $uri;     
