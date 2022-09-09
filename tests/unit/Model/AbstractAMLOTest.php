@@ -56,7 +56,7 @@ class AbstractModelTest extends TestCase
 	    
 	    $expected = $obj->getTurtleHeader('urn:resource:') . "\n" .
 	   	    "<$idUri> a amlo:MyRisk ;" .
-			'amlo:motivatedby "test" ;'.
+			'amlo:motivatedBy "test" ;'.
 	   	    'amlo:hasTarget <urn:x> .' ;
 	    
 	    $this->assertEquals($expected,(string) $obj);

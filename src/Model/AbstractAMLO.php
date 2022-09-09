@@ -73,7 +73,7 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
         $uri= $this->getRiskAnnotationUri($amloRiskType, $targetUri, $bodyUri);
         $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
         $this->addFragment(  'amlo:hasBody <%s> ;', $bodyUri, false);
-        $this->addFragment(  'amlo:motivatedby "%s" ;', $motivatedBy);
+        $this->addFragment(  'amlo:motivatedBy "%s" ;', $motivatedBy);
         $this->addFragment(  'amlo:hasTarget <%s> .', $targetUri, false);
         
         return $uri;
@@ -85,7 +85,7 @@ abstract class AbstractAMLO extends \BOTK\Model\AbstractModel
         $this->addFragment("<%s> a amlo:$amloRiskType ;" , $uri, false);
         $this->addFragment(  'amlo:hasRiskEstimator "%.2f"^^xsd:decimal ;', $riskEstimator, false);
         $this->addFragment(  'amlo:hasBody <%s> ;', $bodyUri, false);
-        $this->addFragment(  'amlo:motivatedby "%s" ;', $motivatedBy);
+        $this->addFragment(  'amlo:motivatedBy "%s" ;', $motivatedBy);
         $this->addFragment(  'amlo:hasTarget <%s> .', $targetUri, false);
         
         return $uri;     

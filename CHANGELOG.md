@@ -5,6 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/) and [changelog
 ## [Unreleased]
 
 
+
+## 3.1.1
+
+### fixed
+
+- motivatedBy bug
+
+
 ## 3.1.0
 
 ### Added
